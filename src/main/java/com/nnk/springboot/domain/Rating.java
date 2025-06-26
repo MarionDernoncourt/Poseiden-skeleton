@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "rating")
 public class Rating {
+	
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
