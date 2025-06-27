@@ -32,6 +32,8 @@ public class RatingService {
 
 	public Rating saveRating(Rating rating) {
 		logger.info("Tentative d'ajout de Rating");
+		List<Rating> ratings = ratingRepository.findAll();
+		ratings.stream().filter(rat -> rat.getId().equals(rating.getId()));
 		return ratingRepository.save(rating);
 
 	}
