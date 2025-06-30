@@ -21,7 +21,7 @@ public class Trade {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer tradeId;
+	private Integer id;
 	
 	@NotBlank
 	private String account;

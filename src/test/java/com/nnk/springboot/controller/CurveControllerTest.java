@@ -87,7 +87,7 @@ public class CurveControllerTest {
 
 	@Test
 	@WithMockUser(username = "user", roles = { "USER" })
-	public void testShowUpdateCurvePointForm_WhenSuccess()() throws Exception {
+	public void testShowUpdateCurvePointForm_WhenSuccess() throws Exception {
 		CurvePoint curvePoint = new CurvePoint(1, null, null, null, null, null);
 
 		when(curvePointService.getCurvePointById(anyInt())).thenReturn(curvePoint);
