@@ -32,9 +32,14 @@ public class RatingService {
 
 	public Rating saveRating(Rating rating) {
 		logger.info("Tentative d'ajout de Rating");
-		List<Rating> ratings = ratingRepository.findAll();
-		ratings.stream().filter(rat -> rat.getId().equals(rating.getId()));
-		return ratingRepository.save(rating);
+		try {
+			Rating savedRating = ratingRepository.save(rating);
+			logger.info("Rating enregistré avec succès : {}", savedRating);
+			return savedRating;
+		} catch (Exception e) {
+			logger.warn("Erreur lors de la sauvegarde du rating : {}", rating);
+			throw e;
+		}
 
 	}
 
@@ -61,17 +66,17 @@ public class RatingService {
 		return ratingToUpdate;
 
 	}
-	
+
 	public void deleteRatingById(Integer id) {
 		logger.info("Tentative de suppression du rating ID : {}", id);
-		
+
 		Optional<Rating> ratingOpt = ratingRepository.findById(id);
-		if(ratingOpt.isEmpty()) {
+		if (ratingOpt.isEmpty()) {
 			logger.warn("Aucun rating trouvé avec l'ID {}", id);
-			throw new IllegalArgumentException("Aucun rating trouvé avec l'ID "+ id);
+			throw new IllegalArgumentException("Aucun rating trouvé avec l'ID " + id);
 		}
 		ratingRepository.deleteById(id);
-		logger.info("Rating ID {} effectué avec succès", id);		
+		logger.info("Rating ID {} effectué avec succès", id);
 
 	}
 }

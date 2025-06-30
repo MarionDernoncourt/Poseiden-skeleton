@@ -81,7 +81,7 @@ public class BidListController {
 		}
 	}
 
-	@DeleteMapping("/bidList/delete/{id}")
+	@GetMapping("/bidList/delete/{id}")
 	public String deleteBid(@PathVariable("id") Integer id, Model model) {
 		try {
 			bidListService.deleteById(id);

@@ -157,7 +157,7 @@ public class BidListControllerTest {
 		
 		doNothing().when(bidListService).deleteById(anyInt());
 		
-		mockMvc.perform(delete("/bidList/delete/1").with(csrf())).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/bidList/list"));
+		mockMvc.perform(get("/bidList/delete/1").with(csrf())).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/bidList/list"));
 	}
 	
 	@Test
@@ -165,7 +165,7 @@ public class BidListControllerTest {
 	public void testDeleteBidById_WhenException() throws Exception {
 		doThrow(new RuntimeException("Erreur lors de la suppression")).when(bidListService).deleteById(anyInt());
 		
-		mockMvc.perform(delete("/bidList/delete/1").with(csrf())).andExpect(status().isOk()).andExpect(view().name("bidList/list"))
+		mockMvc.perform(get("/bidList/delete/1").with(csrf())).andExpect(status().isOk()).andExpect(view().name("bidList/list"))
 		.andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur lors de la suppression"));
 	}
 }

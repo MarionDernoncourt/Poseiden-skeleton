@@ -114,7 +114,7 @@ public class RatingControllerTest {
 		Rating rating = new Rating(1, "Moody", "S&P", "Fitch", 1);
 		when(ratingService.getRatingById(1)).thenReturn(rating);
 
-		mockMvc.perform(delete("/rating/delete/1").with(csrf())).andExpect(status().is3xxRedirection())
+		mockMvc.perform(get("/rating/delete/1").with(csrf())).andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/rating/list"));
 	}
 
@@ -125,7 +125,7 @@ public class RatingControllerTest {
 		List<Rating> ratings = List.of(new Rating(2, "moodys", "S&P", "fitch", 8));
 
 		when(ratingService.getAllRatings()).thenReturn(ratings);
-		mockMvc.perform(delete("/rating/delete/1").with(csrf())).andExpect(status().isOk())
+		mockMvc.perform(get("/rating/delete/1").with(csrf())).andExpect(status().isOk())
 				.andExpect(view().name("rating/list")).andExpect(model().attributeExists("error"))
 				.andExpect(model().attribute("error", "Aucun rating trouvé"))
 				.andExpect(model().attributeExists("ratings")).andExpect(model().attribute("ratings", ratings));

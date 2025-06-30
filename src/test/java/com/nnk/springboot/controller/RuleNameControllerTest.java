@@ -138,7 +138,7 @@ public class RuleNameControllerTest {
 
 		doNothing().when(ruleNameService).deleteRuleNameById(anyInt());
 
-		mockMvc.perform(delete("/ruleName/delete/1").with(csrf())).andExpect(status().is3xxRedirection())
+		mockMvc.perform(get("/ruleName/delete/1").with(csrf())).andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/ruleName/list"));
 	}
 	
@@ -147,7 +147,7 @@ public class RuleNameControllerTest {
 	public void testDeleteRuleNameById_WhenException () throws Exception {
 		doThrow(new RuntimeException("Erreur lors de la suppression du ruleName")).when(ruleNameService).deleteRuleNameById(anyInt());
 		
-		mockMvc.perform(delete("/ruleName/delete/1").with(csrf())).andExpect(status().isOk()).andExpect(view().name("ruleName/list"))
+		mockMvc.perform(get("/ruleName/delete/1").with(csrf())).andExpect(status().isOk()).andExpect(view().name("ruleName/list"))
 		.andExpect(model().attributeExists("error"))
 		.andExpect(model().attribute("error", "Erreur lors de la suppression du ruleName"));
 		}

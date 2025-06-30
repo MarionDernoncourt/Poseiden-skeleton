@@ -36,7 +36,7 @@ public class RuleNameController {
 	}
 
 	@GetMapping("/ruleName/add")
-	public String addRuleForm(RuleName bid) {
+	public String addRuleForm(RuleName ruleName) {
 		return "ruleName/add";
 	}
 
@@ -46,8 +46,7 @@ public class RuleNameController {
 			return "ruleName/add";
 		}
 		try {
-			RuleName newRuleName = ruleNameService.saveRuleName(ruleName);
-			model.addAttribute("ruleNames", newRuleName);
+			ruleNameService.saveRuleName(ruleName);			
 			return "redirect:/ruleName/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
@@ -76,8 +75,7 @@ public class RuleNameController {
 			return "ruleName/update";
 		}
 		try {
-			RuleName updatedRuleName = ruleNameService.updateRuleNameById(id, ruleName);
-			model.addAttribute("ruleName", updatedRuleName);
+			ruleNameService.updateRuleNameById(id, ruleName);
 			return "redirect:/ruleName/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
@@ -85,7 +83,7 @@ public class RuleNameController {
 		}
 	}
 
-	@DeleteMapping("/ruleName/delete/{id}")
+	@GetMapping("/ruleName/delete/{id}")
 	public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
 		try {
 			ruleNameService.deleteRuleNameById(id);

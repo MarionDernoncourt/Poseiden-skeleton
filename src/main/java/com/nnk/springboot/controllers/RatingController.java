@@ -34,7 +34,7 @@ public class RatingController {
 			model.addAttribute("error", e.getMessage());
 			return "rating/list";
 		}
-		
+
 	}
 
 	@GetMapping("/rating/add")
@@ -49,11 +49,11 @@ public class RatingController {
 		}
 		try {
 			ratingService.saveRating(rating);
+			return "redirect:/rating/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 			return "rating/add";
 		}
-		return "redirect:/rating/list";
 	}
 
 	@GetMapping("/rating/update/{id}")
@@ -84,14 +84,13 @@ public class RatingController {
 		}
 	}
 
-	@DeleteMapping("/rating/delete/{id}")
+	@GetMapping("/rating/delete/{id}")
 	public String deleteRating(@PathVariable("id") Integer id, Model model) {
 		try {
 			ratingService.deleteRatingById(id);
 			return "redirect:/rating/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
-			model.addAttribute("ratings", ratingService.getAllRatings());
 			return "rating/list";
 		}
 	}

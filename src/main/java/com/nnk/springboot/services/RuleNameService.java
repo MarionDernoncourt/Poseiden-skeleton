@@ -25,33 +25,20 @@ public class RuleNameService {
 		try {
 			ruleNames = ruleNameRepository.findAll();
 			logger.info("Nombre de rulenames trouvés : {} ", ruleNames.size());
+			return ruleNames;
 		} catch (Exception e) {
 			logger.warn("Erreur lors de la récupération des Rulenames");
 			throw e;
 		}
-		return ruleNames;
+		
 	}
 
 	public RuleName saveRuleName(RuleName ruleName) {
 		logger.info("Tentative d'ajout d'un ruleName");
 
-		List<RuleName> existingRuleNames = ruleNameRepository.findAll();
-
-		boolean alreadyExists = existingRuleNames.stream()
-				.anyMatch(existing -> existing.getName().equals(ruleName.getName())
-						&& existing.getDescription().equals(ruleName.getDescription())
-						&& existing.getJson().equals(ruleName.getJson())
-						&& existing.getTemplate().equals(ruleName.getTemplate())
-						&& existing.getSqlStr().equals(ruleName.getSqlStr())
-						&& existing.getSqlPart().equals(ruleName.getSqlPart()));
-
-		if (alreadyExists) {
-			logger.warn("Erreur le ruleName existe déjà");
-			throw new IllegalArgumentException("Ce RuleName existe déjà.");
-		}
-
 		RuleName newRuleName = ruleNameRepository.save(ruleName);
 		logger.info("Le RuleName a bien été ajouté");
+		
 		return newRuleName;
 	}
 
