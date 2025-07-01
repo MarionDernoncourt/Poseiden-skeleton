@@ -50,6 +50,7 @@ public class RuleNameController {
 			return "redirect:/ruleName/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
+			model.addAttribute("ruleName", ruleName);
 			return "ruleName/add";
 		}
 

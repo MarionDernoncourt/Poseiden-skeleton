@@ -52,6 +52,7 @@ public class RatingController {
 			return "redirect:/rating/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
+			model.addAttribute("rating", rating);
 			return "rating/add";
 		}
 	}

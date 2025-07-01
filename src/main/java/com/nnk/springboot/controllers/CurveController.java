@@ -53,6 +53,7 @@ public class CurveController {
 			return "redirect:/curvePoint/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
+			model.addAttribute("curvePoint", curvePoint);
 			return "curvePoint/add";
 		}
 	}

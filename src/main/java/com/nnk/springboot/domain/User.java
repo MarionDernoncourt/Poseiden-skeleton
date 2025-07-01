@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class User {
     private String username;
     
     @NotBlank(message = "Password is mandatory")
+    @Pattern(
+    		regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{8,}$",
+    		message = " Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial")
     private String password;
     
     @NotBlank(message = "FullName is mandatory")

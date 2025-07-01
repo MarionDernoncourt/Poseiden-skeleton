@@ -50,6 +50,7 @@ public class TradeController {
 			return "redirect:/trade/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
+			model.addAttribute("trade", trade);
 			return "trade/add";
 		}
 	}

@@ -50,6 +50,7 @@ public class BidListController {
 			return "redirect:/bidList/list";
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
+			model.addAttribute("bidList", bid);
 			return "bidList/add";
 		}
 
