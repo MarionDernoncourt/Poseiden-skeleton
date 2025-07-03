@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import org.hibernate.event.internal.OnUpdateVisitor;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,9 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import validations.ValidPasswordIfPresent;
+import validations.ValidationGroup.OnCreate;
+import validations.ValidationGroup.OnUpdate;
 
 @Data
 @NoArgsConstructor
@@ -26,11 +32,9 @@ public class User {
     
     @NotBlank(message = "Username is mandatory")
     private String username;
-    
-    @NotBlank(message = "Password is mandatory")
-    @Pattern(
-    		regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{8,}$",
-    		message = " Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial")
+ 
+    @ValidPasswordIfPresent(groups = OnUpdate.class)
+    @NotBlank(groups= OnCreate.class, message = "Merci de renseigner un mot de passe")
     private String password;
     
     @NotBlank(message = "FullName is mandatory")
