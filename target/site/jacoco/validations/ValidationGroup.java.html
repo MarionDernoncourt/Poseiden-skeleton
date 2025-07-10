@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidationGroup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">validations</a> &gt; <span class="el_source">ValidationGroup.java</span></div><h1>ValidationGroup.java</h1><pre class="source lang-java linenums">package validations;
+
+/**
+ * Définition de groupes de validation utilisés pour appliquer des contraintes
+ * différentes selon le contexte (création ou mise à jour d'une entité).
+ * 
+ * Cette classe contient deux interfaces vides qui servent uniquement à marquer
+ * les opérations lors de la validation avec {@code @Validated} ou {@code @Valid}.
+ * 
+ *  {@link OnCreate} : groupe utilisé pour les validations lors de la création d'une entité.
+ *  {@link OnUpdate} : groupe utilisé pour les validations lors de la mise à jour d'une entité.
+ * 
+ *
+ * Exemple d'utilisation dans une entité :
+ * {@code
+ * @NotBlank(groups = ValidationGroup.OnCreate.class)
+ * private String password;
+ * }
+ * 
+ * Exemple dans un contrôleur :
+ * {@code
+ * @PostMapping(&quot;/user/update/{id}&quot;)
+ * public String updateUser(@Validated(OnUpdate.class) User user, ...)
+ * }
+ *
+ */
+
+<span class="nc" id="L28">public class ValidationGroup {</span>
+	  public interface OnCreate {}
+	    public interface OnUpdate {}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

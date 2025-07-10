@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.UserService;
+import com.nnk.springboot.validations.ValidationGroup.OnCreate;
+import com.nnk.springboot.validations.ValidationGroup.OnUpdate;
 
 import jakarta.validation.Valid;
-import validations.ValidationGroup.OnUpdate;
-import validations.ValidationGroup.OnCreate;
 
 
 @Controller

@@ -50,6 +50,7 @@ public class TradeControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(username="user", roles= {"USER"})
 	public void testGetAllTrades_WhenException() throws Exception {
 		when(tradeService.getAllTrades()).thenThrow(new RuntimeException("Erreur lors de la récupération des trade"));
 		

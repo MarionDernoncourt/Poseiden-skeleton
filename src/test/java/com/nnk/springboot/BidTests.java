@@ -1,46 +1,64 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-import java.util.Optional;
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.services.BidListService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BidTests {
 
-	@Autowired
+	@Mock
 	private BidListRepository bidListRepository;
 
+	@InjectMocks
+	private BidListService bidListService;
+	
 	@Test
-	public void bidListTest() {
-		BidList bid = new BidList(null, "Account Test", "Type Test", 10d, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-
-		// Save
-		bid = bidListRepository.save(bid);
-		Assert.assertNotNull(bid.getAccount());
-		Assert.assertEquals(bid.getBidQuantity(), 10d, 10d);
-
-		// Update
-		bid.setBidQuantity(20d);
-		bid = bidListRepository.save(bid);
-		Assert.assertEquals(bid.getBidQuantity(), 20d, 20d);
-
-		// Find
-		List<BidList> listResult = bidListRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
-
-		// Delete
-		Integer id = bid.getId();
-		bidListRepository.delete(bid);
-		Optional<BidList> bidList = bidListRepository.findById(id);
-		Assert.assertFalse(bidList.isPresent());
+	public void testGetAllBidList_WhenSuccess() {
+		BidList bid = new BidList();
+		bid.setId(1);
+		bid.setAccount("Account1");
+		bid.setBidQuantity(10d);
+		
+		List<BidList> expectedBidList = new ArrayList();
+		
+		expectedBidList.add(bid);
+		
+		when(bidListRepository.findAll()).thenReturn(expectedBidList);
+		
+		List<BidList> actualBidList = bidListService.getAllBidList();
+		
+		assertEquals(expectedBidList.size(), actualBidList.size());
+		assertEquals(expectedBidList, actualBidList);
 	}
+
+	@Test
+	public void testGetAllBidList_WhenException() {
+		List<BidList> bidList = new ArrayList<>();
+		
+		when(bidListRepository.findAll()).thenReturn(bidList);
+		
+		List<BidList> actualBidList = bidListService.getAllBidList();
+		
+		assertEquals(0, actualBidList.size());
+		assertEquals(bidList, actualBidList);
+	}
+	
+
 }

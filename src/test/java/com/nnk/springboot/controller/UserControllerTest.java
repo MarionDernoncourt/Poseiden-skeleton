@@ -78,17 +78,17 @@ public class UserControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = "user", roles = { "USER" })
+	@WithMockUser(username = "user", roles = {"USER"})
 	public void testSaveUser_WhenResultHasErrors() throws Exception {
 		User newUser = new User();
 		newUser.setFullname("fullname");
-		newUser.setPassword("password");
+		newUser.setPassword("");
 		newUser.setUsername("username");
 		newUser.setRole("user");
 
 		when(userService.saveUser(any(User.class))).thenReturn(newUser);
 
-		mockMvc.perform(post("/user/validate").with(csrf()).param("fullname", "fullname").param("password", "password")
+		mockMvc.perform(post("/user/validate").with(csrf()).param("fullname", "fullname").param("password", "")
 				.param("username", "username").param("role", "user")).andExpect(status().isOk())
 				.andExpect(view().name("user/add")).andExpect(model().attributeExists("user"))
 				.andExpect(model().attribute("user", newUser));

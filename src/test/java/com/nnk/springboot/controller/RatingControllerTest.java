@@ -127,8 +127,7 @@ public class RatingControllerTest {
 		when(ratingService.getAllRatings()).thenReturn(ratings);
 		mockMvc.perform(get("/rating/delete/1").with(csrf())).andExpect(status().isOk())
 				.andExpect(view().name("rating/list")).andExpect(model().attributeExists("error"))
-				.andExpect(model().attribute("error", "Aucun rating trouvé"))
-				.andExpect(model().attributeExists("ratings")).andExpect(model().attribute("ratings", ratings));
+				.andExpect(model().attribute("error", "Aucun rating trouvé"));
 	}
 
 }

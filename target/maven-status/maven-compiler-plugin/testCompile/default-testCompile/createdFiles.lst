@@ -1,0 +1,16 @@
+com\nnk\springboot\PasswordEncodeTest.class
+com\nnk\springboot\RatingTests.class
+com\nnk\springboot\config\SecurityConfigTest.class
+com\nnk\springboot\controller\TradeControllerTest.class
+com\nnk\springboot\RuleTests.class
+com\nnk\springboot\BidTests.class
+com\nnk\springboot\controller\RatingControllerTest.class
+com\nnk\springboot\controller\RuleNameControllerTest.class
+com\nnk\springboot\config\CustomUserDetailsServiceTest.class
+com\nnk\springboot\CurvePointTests.class
+com\nnk\springboot\TradeTests.class
+com\nnk\springboot\controller\CurveControllerTest.class
+com\nnk\springboot\controller\UserControllerTest.class
+com\nnk\springboot\controller\BidListControllerTest.class
+com\nnk\springboot\UserServiceTest.class
+com\nnk\springboot\validation\UserValidatorTest.class
