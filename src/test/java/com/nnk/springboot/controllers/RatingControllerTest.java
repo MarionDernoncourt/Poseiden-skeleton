@@ -106,6 +106,30 @@ public class RatingControllerTest {
 		mockMvc.perform(get("/rating/update/1")).andExpect(status().isOk()).andExpect(view().name("rating/list"))
 				.andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur interne"));
 	}
+	
+	@Test
+	@WithMockUser(username="user", roles= {"USER"})
+	public void testUpdateRating_WhenSuccess() throws Exception {
+		Rating rating = new Rating(1, "Moody", "S&P", "Fitch", 1);
+
+		when(ratingService.updateRating(anyInt(), any(Rating.class))).thenReturn(rating);
+		
+		mockMvc.perform(post("/rating/update/1").with(csrf()).param("account", "Account").param("type", "Type"))
+		.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/rating/list"));
+	}
+	
+	@Test
+	@WithMockUser(username="user", roles= {"USER"})
+	public void testUpdateRating_WhenException() throws Exception {
+		Rating rating = new Rating(1, "Moody", "S&P", "Fitch", 1);
+
+		when(ratingService.updateRating(anyInt(), any(Rating.class))).thenThrow(new RuntimeException("Erreur lors de la mise à jour"));
+		
+		mockMvc.perform(post("/rating/update/1").with(csrf()).param("account", "Account").param("type", "Type"))
+		.andExpect(status().isOk()).andExpect(view().name("rating/update"))
+		.andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur lors de la mise à jour"));
+	}
+	
 
 	@Test
 	@WithMockUser(username = "user", roles = { "USER" })

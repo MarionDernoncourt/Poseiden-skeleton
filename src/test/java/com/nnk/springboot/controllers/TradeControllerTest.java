@@ -34,88 +34,121 @@ public class TradeControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@MockBean
 	private TradeService tradeService;
-	
+
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testGetAllTrades_WhenSuccess() throws Exception {
-		List<Trade> trades = List.of(new Trade(1, "account1", "type1", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
-		
+		List<Trade> trades = List.of(new Trade(1, "account1", "type1", null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null));
+
 		when(tradeService.getAllTrades()).thenReturn(trades);
-		
+
 		mockMvc.perform(get("/trade/list")).andExpect(status().isOk()).andExpect(view().name("trade/list"))
-		.andExpect(model().attributeExists("trades")).andExpect(model().attribute("trades", trades));
+				.andExpect(model().attributeExists("trades")).andExpect(model().attribute("trades", trades));
 	}
-	
+
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testGetAllTrades_WhenException() throws Exception {
 		when(tradeService.getAllTrades()).thenThrow(new RuntimeException("Erreur lors de la récupération des trade"));
-		
+
 		mockMvc.perform(get("/trade/list")).andExpect(status().isOk()).andExpect(view().name("trade/list"))
-		.andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur lors de la récupération des trade"));
+				.andExpect(model().attributeExists("error"))
+				.andExpect(model().attribute("error", "Erreur lors de la récupération des trade"));
+	}
+
+	@Test
+	@WithMockUser(username = "user", roles = { "USER" })
+	public void testSaveTrade_WhenSuccess() throws Exception {
+		Trade trade = new Trade();
+		trade.setId(1);
+		trade.setAccount("Account");
+		trade.setType("Type");
+
+		when(tradeService.saveTrade(any(Trade.class))).thenReturn(trade);
+
+		mockMvc.perform(post("/trade/validate").with(csrf()).param("account", "Account").param("type", "type"))
+				.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/trade/list"));
+	}
+
+	@Test
+	@WithMockUser(username="user", roles= {"USER"})
+	public void testSaveTrade_WhenException() throws Exception {
+		when(tradeService.saveTrade(any(Trade.class))).thenThrow(new RuntimeException("Erreur lors de la sauvegarde"));
+		
+		mockMvc.perform(post("/trade/validate").with(csrf()).param("account", "Account").param("type", "Type")).andExpect(status().isOk())
+		.andExpect(view().name("trade/add")).andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur lors de la sauvegarde"));
 	}
 	
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testShowUpdateForm_WhenSuccess() throws Exception {
-		Trade tradeToUpdate = new Trade(1, "account1", "type1", 2.00, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-		
+		Trade tradeToUpdate = new Trade(1, "account1", "type1", 2.00, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null);
+
 		when(tradeService.getTradeById(anyInt())).thenReturn(tradeToUpdate);
-		
-		mockMvc.perform(get("/trade/update/1").with(csrf()).param("account", "account1").param("type", "type1").param("buyQuantity", "2.00"))
-		.andExpect(status().isOk()).andExpect(view().name("trade/update"))
-		.andExpect(model().attributeExists("trade")).andExpect(model().attribute("trade", tradeToUpdate));
+
+		mockMvc.perform(get("/trade/update/1").with(csrf()).param("account", "account1").param("type", "type1")
+				.param("buyQuantity", "2.00")).andExpect(status().isOk()).andExpect(view().name("trade/update"))
+				.andExpect(model().attributeExists("trade")).andExpect(model().attribute("trade", tradeToUpdate));
 	}
-	
+
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testShowUpdateForm_WhenException() throws Exception {
-	when(tradeService.getTradeById(anyInt())).thenThrow(new RuntimeException("Erreur lors de l'affichage du formulaire"));
-	
-	mockMvc.perform(get("/trade/update/1")).andExpect(status().isOk()).andExpect(view().name("trade/list"))
-	.andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur lors de l'affichage du formulaire"));
+		when(tradeService.getTradeById(anyInt()))
+				.thenThrow(new RuntimeException("Erreur lors de l'affichage du formulaire"));
+
+		mockMvc.perform(get("/trade/update/1")).andExpect(status().isOk()).andExpect(view().name("trade/list"))
+				.andExpect(model().attributeExists("error"))
+				.andExpect(model().attribute("error", "Erreur lors de l'affichage du formulaire"));
 	}
-	
+
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testUpdateTradeById_WhenSuccess() throws Exception {
-		Trade tradeUpdated = new Trade(1, "account1", "type1", 2.00, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		Trade tradeUpdated = new Trade(1, "account1", "type1", 2.00, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null);
 
 		when(tradeService.updateTradeById(anyInt(), any(Trade.class))).thenReturn(tradeUpdated);
-		
-		mockMvc.perform(post("/trade/update/1").with(csrf()).param("account", "account1").param("type", "type1").param("buyQuantity", "2.00"))
-		.andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/trade/list"));
+
+		mockMvc.perform(post("/trade/update/1").with(csrf()).param("account", "account1").param("type", "type1")
+				.param("buyQuantity", "2.00")).andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/trade/list"));
 	}
 
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testUpdateTradeById_WhenException() throws Exception {
-		when(tradeService.updateTradeById(anyInt(), any(Trade.class))).thenThrow(new RuntimeException("Erreur lors de la mise à jour"));
-		
-		mockMvc.perform(post("/trade/update/1").with(csrf()).param("account", "account1").param("type", "type1").param("buyQuantity", "2.00"))
-		.andExpect(status().isOk()).andExpect(view().name("trade/update"))
-		.andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur lors de la mise à jour"));
+		when(tradeService.updateTradeById(anyInt(), any(Trade.class)))
+				.thenThrow(new RuntimeException("Erreur lors de la mise à jour"));
+
+		mockMvc.perform(post("/trade/update/1").with(csrf()).param("account", "account1").param("type", "type1")
+				.param("buyQuantity", "2.00")).andExpect(status().isOk()).andExpect(view().name("trade/update"))
+				.andExpect(model().attributeExists("error"))
+				.andExpect(model().attribute("error", "Erreur lors de la mise à jour"));
 	}
-	
+
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testDeleteTradeById_WhenSuccess() throws Exception {
 		doNothing().when(tradeService).deleteTradeById(anyInt());
-		
-		mockMvc.perform(get("/trade/delete/1")).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/trade/list"));
+
+		mockMvc.perform(get("/trade/delete/1")).andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/trade/list"));
 	}
-	
+
 	@Test
-	@WithMockUser(username="user", roles= {"USER"})
+	@WithMockUser(username = "user", roles = { "USER" })
 	public void testDeleteTradeById_WhenException() throws Exception {
 		doThrow(new RuntimeException("Erreur lors de la suppression")).when(tradeService).deleteTradeById(anyInt());
-		
+
 		mockMvc.perform(get("/trade/delete/1")).andExpect(status().isOk()).andExpect(view().name("trade/list"))
-		.andExpect(model().attributeExists("error")).andExpect(model().attribute("error", "Erreur lors de la suppression"));
+				.andExpect(model().attributeExists("error"))
+				.andExpect(model().attribute("error", "Erreur lors de la suppression"));
 	}
-	
 
 }
