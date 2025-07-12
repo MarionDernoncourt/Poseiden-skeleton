@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.services.RatingService;
+import com.nnk.springboot.service.RatingService;
 
 import jakarta.validation.Valid;
 

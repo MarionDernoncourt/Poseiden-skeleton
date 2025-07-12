@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.services.BidListService;
+import com.nnk.springboot.service.BidListService;
 
 import jakarta.validation.Valid;
 

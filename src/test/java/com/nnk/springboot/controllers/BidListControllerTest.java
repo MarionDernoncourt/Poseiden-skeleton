@@ -1,4 +1,4 @@
-package com.nnk.springboot.controller;
+package com.nnk.springboot.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.nnk.springboot.controllers.BidListController;
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.services.BidListService;
+import com.nnk.springboot.service.BidListService;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(BidListController.class)

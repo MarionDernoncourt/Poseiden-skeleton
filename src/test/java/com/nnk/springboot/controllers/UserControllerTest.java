@@ -1,4 +1,4 @@
-package com.nnk.springboot.controller;
+package com.nnk.springboot.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasProperty;
@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.nnk.springboot.controllers.UserController;
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.services.UserService;
+import com.nnk.springboot.service.UserService;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(UserController.class)

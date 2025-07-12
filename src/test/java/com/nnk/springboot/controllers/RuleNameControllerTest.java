@@ -1,4 +1,4 @@
-package com.nnk.springboot.controller;
+package com.nnk.springboot.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -7,7 +7,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -28,7 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.nnk.springboot.controllers.RuleNameController;
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.services.RuleNameService;
+import com.nnk.springboot.service.RuleNameService;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(RuleNameController.class)

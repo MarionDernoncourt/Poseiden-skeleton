@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.services.RuleNameService;
+import com.nnk.springboot.service.RuleNameService;
 
 import jakarta.validation.Valid;
 

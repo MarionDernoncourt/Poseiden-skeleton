@@ -1,4 +1,4 @@
-package com.nnk.springboot.services;
+package com.nnk.springboot.service;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class RuleNameService {
 		logger.info("Tentative de mise à jour du rulename id {}", id);
 
 		RuleName ruleNameToUpdate = ruleNameRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Aucun rulename avec cet id " + id));
+				.orElseThrow(() -> new IllegalArgumentException("Aucun rulename avec cet id"));
 
 		ruleNameToUpdate.setName(ruleName.getName());
 		ruleNameToUpdate.setDescription(ruleName.getDescription());

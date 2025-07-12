@@ -1,4 +1,4 @@
-package com.nnk.springboot.controller;
+package com.nnk.springboot.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.nnk.springboot.controllers.TradeController;
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.services.TradeService;
+import com.nnk.springboot.service.TradeService;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(TradeController.class)

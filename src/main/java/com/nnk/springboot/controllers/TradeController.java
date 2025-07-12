@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.services.TradeService;
+import com.nnk.springboot.service.TradeService;
 
 import jakarta.validation.Valid;
 

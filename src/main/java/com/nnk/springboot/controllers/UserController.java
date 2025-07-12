@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.services.UserService;
+import com.nnk.springboot.service.UserService;
 import com.nnk.springboot.validations.ValidationGroup.OnCreate;
 import com.nnk.springboot.validations.ValidationGroup.OnUpdate;
 
@@ -60,6 +61,7 @@ public class UserController {
 
     
     @GetMapping("/user/update/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.name== @userService.getUserById(#id).getUsername()" )
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	try {
     		User user = userService.getUserById(id);
@@ -75,6 +77,7 @@ public class UserController {
     
 
     @PostMapping("/user/update/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.name== @userService.getUserById(#id).getUsername()" )
     public String updateUser(@PathVariable("id") Integer id, @Validated(OnUpdate.class) User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -91,6 +94,7 @@ public class UserController {
     }
 
     @GetMapping("/user/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
     	try {
     		userService.deleteUserById(id);

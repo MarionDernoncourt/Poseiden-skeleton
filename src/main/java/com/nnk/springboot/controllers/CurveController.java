@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.services.CurvePointService;
+import com.nnk.springboot.service.CurvePointService;
 
 import jakarta.validation.Valid;
 

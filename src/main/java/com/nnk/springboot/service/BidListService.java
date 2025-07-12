@@ -1,7 +1,6 @@
-package com.nnk.springboot.services;
+package com.nnk.springboot.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +32,10 @@ public class BidListService {
 	public BidList saveBidList(BidList bid) {
 		logger.info("Tentative de sauvegarde du bid {}", bid.getId());
 
-		bidListRepository.save(bid);
+		BidList savedBid = bidListRepository.save(bid);
 		logger.info("Bid bien sauvegarder");
 
-		return bid;
+		return savedBid;
 	}
 
 	public BidList getBidListById(Integer id) {

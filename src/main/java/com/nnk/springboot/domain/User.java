@@ -1,7 +1,5 @@
 package com.nnk.springboot.domain;
 
-import org.hibernate.event.internal.OnUpdateVisitor;
-
 import com.nnk.springboot.validations.ValidPasswordIfPresent;
 import com.nnk.springboot.validations.ValidationGroup.OnCreate;
 import com.nnk.springboot.validations.ValidationGroup.OnUpdate;
@@ -12,8 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

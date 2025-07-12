@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
 	  <head>
 <meta charset="utf-8"/>
 <title>Home</title>
@@ -36,8 +37,10 @@
 					<td th:text="${user.username}"></td>
 					<td style="width: 25%" th:text="${user.role}"></td>
 					<td style="width: 15%" class="text-center">
+						<span th:if="${#authorization.expression('hasRole(''ADMIN'')') or (#authentication.principal.username == user.username)}">
 						<a th:href="@{/user/update/{id}(id=${user.id})}">Edit</a>&nbsp;|&nbsp;
-						<a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a>
+							<a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a>
+						</span>
 					</td>
 				</tr>
 			</tbody>

@@ -1,4 +1,4 @@
-package com.nnk.springboot.config;
+package com.nnk.springboot.configuration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;

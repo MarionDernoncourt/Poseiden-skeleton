@@ -1,4 +1,4 @@
-package com.nnk.springboot.validation;
+package com.nnk.springboot.validations;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
