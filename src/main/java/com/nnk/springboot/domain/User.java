@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,17 +28,22 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     
-    @NotBlank(message = "Username is mandatory")
+    @NotBlank(message = "Username is mandatory", groups = {OnCreate.class, OnUpdate.class})
     private String username;
  
     @ValidPasswordIfPresent(groups = OnUpdate.class)
     @NotBlank(groups= OnCreate.class, message = "Merci de renseigner un mot de passe")
+    @Pattern(
+    	    regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=<>?{}\\[\\]~\\-]).{8,}$",
+    	    message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial",
+    	    groups = OnCreate.class
+    	)
     private String password;
     
-    @NotBlank(message = "FullName is mandatory")
+    @NotBlank(message = "FullName is mandatory", groups = { OnCreate.class, OnUpdate.class })
     private String fullname;
     
-    @NotBlank(message = "Role is mandatory")
+    @NotBlank(message = "Role is mandatory", groups = { OnCreate.class, OnUpdate.class })
     private String role;
 
     public Integer getId() {
